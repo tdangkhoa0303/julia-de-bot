@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "julia-de-bot"
+version = "0.1.0"
+description = ""
+authors = ["Khoa Tran <tdkhoa0303@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+transformers = "^4.35.0"
+python-telegram-bot = "^20.6"
+torch = "^2.1.0"
+accelerate = "^0.24.1"
+pymongo = "^4.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
