@@ -7,7 +7,6 @@ from ..constants import CHAT_MODE_TEXT, CHOOSING, ChatMode
 CHAT_MODE_OPTIONS = [
   [CHAT_MODE_TEXT[ChatMode.CHATTING]],
   [CHAT_MODE_TEXT[ChatMode.TEXT_TO_IMAGE]],
-  [CHAT_MODE_TEXT[ChatMode.GOOD_BYE]],
 ]
 
 markup = ReplyKeyboardMarkup(CHAT_MODE_OPTIONS, one_time_keyboard=True)

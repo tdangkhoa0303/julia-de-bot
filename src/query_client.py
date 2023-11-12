@@ -1,6 +1,8 @@
 from requests import post, Response
 
-headers = {"Authorization": "Bearer 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"}
+from .configs import ENV
+
+headers = {"Authorization": f"Bearer {ENV['HUGGING_FACE_TOKEN']}"}
 
 def api_post(api_url: str, payload: any) -> Response:
 	return post(

@@ -5,15 +5,20 @@ from src.handlers.fallback import fallback
 from src.handlers.choose_mode import choose_mode
 from src.handlers.reply_chat import reply_chat
 from src.handlers.start import start
-from src.handlers.cancel import cancel
+from src.handlers.bye import bye
+from src.configs import ENV
 
 def main():
   # Create an Updater and pass it your bot's token
-  application = ApplicationBuilder().token('6984320493:AAH46nXPWocYTSkZqa3sqajM9ZlqUagybdE').build()
+  application = ApplicationBuilder().token(ENV['TELEGRAM_BOT_TOKEN']).build()
 
   # Define the ConversationHandler with states and transitions
   conv_handler = ConversationHandler(
-      entry_points=[CommandHandler('start', start)],
+      entry_points=[
+        CommandHandler('start', start), 
+        MessageHandler(filters.ALL & ~filters.COMMAND, fallback),
+        CommandHandler('bye', bye)
+      ],
       states={
           CHOOSING: [MessageHandler(filters.TEXT & ~filters.COMMAND, choose_mode)],
           TYPING_REPLY: [
@@ -25,7 +30,7 @@ def main():
       },
       fallbacks=[
         MessageHandler(filters.ALL & ~filters.COMMAND, fallback),
-        CommandHandler('cancel', cancel), 
+        CommandHandler('bye', bye), 
       ],
       per_user=True,
   )

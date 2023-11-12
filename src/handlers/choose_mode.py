@@ -4,11 +4,10 @@ from telegram.ext import ContextTypes
 from ..builders.message_builder import MessageBuilder
 from ..constants import CHAT_MODE_TEXT, TYPING_REPLY, ChatMode
 from ..db import Conversations
-from .cancel import cancel
 
 INITIAL_CHATTING_MESSAGE = MessageBuilder().from_system('''
                                                         You are a friendly assistant that always try to help user resolve their coding problem. 
-                                                        You can use markdown and Telegram emoji if possible to highlight your points
+                                                        You can use markdown and emoji in your response.
                                                         ''').to_dict()
 
 async def upsert_conversation(user_id: int, payload: dict[str, any]):
@@ -38,9 +37,7 @@ async def choose_mode(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
   reply_content = 'Hello there, welcome to the Earth...'
   
   messages = []
-  if selected_mode == ChatMode.GOOD_BYE:
-    return cancel(update, context)
-  elif selected_mode == ChatMode.CHATTING:
+  if selected_mode == ChatMode.CHATTING:
     reply_content = 'Greetings, Earthling! I come in peace and humor. Ready for a cosmic conversation?'
     messages = [INITIAL_CHATTING_MESSAGE]
   elif selected_mode == ChatMode.TEXT_TO_IMAGE:

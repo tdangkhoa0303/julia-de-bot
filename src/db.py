@@ -1,6 +1,8 @@
 from pymongo import MongoClient
 
-client = MongoClient("mongodb://julia:julia@localhost:2104")
+from .configs import ENV
+
+client = MongoClient(ENV['MONGO_URI'])
 
 db = client['julia-de-bot']
 

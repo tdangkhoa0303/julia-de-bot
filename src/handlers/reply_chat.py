@@ -32,6 +32,36 @@ def extract_predicted_response(outputs):
   generated_text = outputs[0]["generated_text"]
   return generated_text.split(ASSISTANT_TOKEN)[-1].strip()
 
+SPECIAL_CHARS = [
+  '\\',
+  '_',
+  '*',
+  '[',
+  ']',
+  '(',
+  ')',
+  '~',
+  '>',
+  '<',
+  '&',
+  '#',
+  '+',
+  '-',
+  '=',
+  '|',
+  '{',
+  '}',
+  '.',
+  '!'
+]
+
+def escapeMarkdown(text: str) -> str:
+  escaped_text = text
+  for char in SPECIAL_CHARS:
+    escaped_text = escaped_text.replace(char, f"\\{char}")
+  return escaped_text
+
+
 async def reply_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
   await context.bot.send_chat_action(
     chat_id=update.effective_message.chat_id, 
@@ -74,7 +104,7 @@ async def reply_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     )
     
     try:
-      await update.message.reply_markdown_v2(reply_content)
+      await update.message.reply_markdown_v2(escapeMarkdown(reply_content))
     except:
       print("Error:", reply_content)
       await update.message.reply_text(reply_content)
