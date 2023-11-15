@@ -5,7 +5,7 @@ from ..db import Conversations
 
 async def bye(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
   await update.message.reply_text(
-    "Hey there! Thanks for choosing with me. If you ever fancy another chat or have questions, feel free to drop by. Take care and goodbye for now!",
+    "👋 It was a pleasure chatting with you! If you ever have more questions or just want to have a friendly chat, feel free to reach out. Until next time, take care and have a wonderful day! Goodbye! 👋🌟",
     reply_markup=ReplyKeyboardRemove(),
   )
   
